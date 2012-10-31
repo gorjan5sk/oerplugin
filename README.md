@@ -33,10 +33,3 @@ Admin Control Interface:
   Remove users
 
 
-===============================================
-Predavanje na plugin:
-Licenca GPL2 vo site fajlovi
-
-Links:
-http://phpxref.com/xref/wordpress/
-http://themeshaper.com/modify-wordpress-themes/
