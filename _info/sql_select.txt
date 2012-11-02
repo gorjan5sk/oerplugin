@@ -1,0 +1,5 @@
+SELECT OER_Resource.title AS Title, OER_Resource.description AS Description, OER_Language.title_mk AS Language, OER_User.full_name AS UploadedBy
+FROM OER_Resource, OER_User, OER_Language
+WHERE OER_Resource.user_id = OER_User.id
+AND OER_Resource.language_id = OER_Language.id
+AND OER_Resource.approved = 1
