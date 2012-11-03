@@ -163,14 +163,14 @@ if (isset($_POST['submit_resource'])) { //Upload Resource
             
             $to = get_option("oerplugin_admin_email");
             $subject = "Open Educational Resources - OER Resource Uploaded";
-            $message = "The resource {$up_res_title} has to be approved by the admin.\r\n";
-            $message .= "Link to the resource administration page:\r\n";
-            $message .= site_url('/wp-admin/admin.php?page=oerplugin_resources')." \r\n\r\n";
+            $mail_message = "The resource {$up_res_title} has to be approved by the admin.\r\n";
+            $mail_message .= "Link to the resource administration page:\r\n";
+            $mail_message .= site_url('/wp-admin/admin.php?page=oerplugin_resources')." \r\n\r\n";
             
             if($up_res_note!='')
-              $message .= "Note from the user: \r\n" . $up_res_note ." \r\n\r\n";
+              $mail_message .= "Note from the user: \r\n" . $up_res_note ." \r\n\r\n";
             
-            if(!wp_mail($to, $subject, $message)) {
+            if(!wp_mail($to, $subject, $mail_message)) {
                 $fail_message = __('Проблем при прикачувањето на ресурсот, ве молиме контактирајте го администраторот.','oerplugin');
             }
             else {
