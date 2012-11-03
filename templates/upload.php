@@ -67,10 +67,24 @@ if (isset($_POST['submit_resource'])) { //Upload Resource
     else if($rdb_selection == '2') {
         $data_key = "data_link";
         $data_value = sanitize_text_field($_POST['oer_up_res_link']);
+        $icon = site_url( "/wp-content/plugins/oerplugin/icons/" . "link.png" );
     }
     else if($rdb_selection == '3') {
         $data_key = "data_embed";
         $data_value = $_POST['oer_up_res_embed'];
+        if(strpos($data_value,'youtube')) {
+        		$icon = site_url( "/wp-content/plugins/oerplugin/icons/" . "youtube.png" );
+        } else if(strpos($data_value,'slideshare')) {
+        		$icon = site_url( "/wp-content/plugins/oerplugin/icons/" . "slideshare.png" );
+        } else if(strpos($data_value,'scribd')) {
+        		$icon = site_url( "/wp-content/plugins/oerplugin/icons/" . "scribd.png" );
+        } else if(strpos($data_value,'vimeo')) {
+        		$icon = site_url( "/wp-content/plugins/oerplugin/icons/" . "vimeo.png" );
+        } else if(strpos($data_value,'soundcloud')) {
+        		$icon = site_url( "/wp-content/plugins/oerplugin/icons/" . "soundcloud.png" );
+        } else {
+        		$icon = site_url( "/wp-content/plugins/oerplugin/icons/" . "embed.png" );
+        }
     }
     
     if( !isset($up_res_note) )
@@ -147,9 +161,6 @@ if (isset($_POST['submit_resource'])) { //Upload Resource
             );
             
             
-        
-        
-        
             $to = get_option("oerplugin_admin_email");
             $subject = "Open Educational Resources - OER Resource Uploaded";
             $message = "The resource {$up_res_title} has to be approved by the admin.\r\n";
