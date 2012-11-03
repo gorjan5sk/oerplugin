@@ -5,6 +5,9 @@ function parameters_display() {
     $_POST = stripslashes_deep( $_POST );
     $_GET = stripslashes_deep( $_GET );    
 
+    $resources_page_id = get_option("oerplugin_resources_page_id");
+    $resources_url = get_permalink($resources_page_id);
+
     global $wpdb;
     
     $is_albanian = false;
@@ -15,7 +18,11 @@ function parameters_display() {
     $result1 = $wpdb->get_results($first_query);
     $output = "";
 
-    $output .= "<form method='GET'>";
+			
+
+    $output .= "<form action='' method='GET'>";
+    if(isset($_GET['page_id']))
+    		$output .= "<input type='hidden' name='page_id' value='" . $_GET['page_id'] . "'/>";
     if( isset($_GET['keyword']) ){
       $output .= "<input type='text' name = 'keyword' placeholder='" . __('Пребарај низ ресурсите','oerplugin') . "' value='{$_GET['keyword']}' style='width: 195px' />";
     } else {

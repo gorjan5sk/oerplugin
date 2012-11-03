@@ -7,8 +7,8 @@ function resources_display_all() {
     
     global $wpdb;
     $resources_page_id = get_option("oerplugin_resources_page_id");
-    $resources_url = get_permalink($resources_page_id);
-
+    $resources_url = get_permalink($resources_page_id); 
+			
     if( get_option( 'permalink_structure') )
       if(isset($_GET['lang']))
         $m = '?lang=' . $_GET['lang'] . '&';
@@ -36,14 +36,14 @@ function resources_display_all() {
 
       // Keyword length is between 3 and 200 chars
       if( strlen($keywords) >= 3 && strlen($keywords) <=200 ){
-	$search_string = "+" . str_replace(" ", " +", $keywords);
-	$query_all_resources .= " AND MATCH (title, description, note, author) AGAINST ('{$search_string}' IN BOOLEAN MODE)";
+						$search_string = "+" . str_replace(" ", " +", $keywords);
+						$query_all_resources .= " AND MATCH (title, description, note, author) AGAINST ('{$search_string}' IN BOOLEAN MODE)";
       }
 
       $parameters = $wpdb->get_results("SELECT * FROM OER_Parameters ORDER BY position");
       if($parameters) {
 	foreach($parameters as $p) {
-	  if($p->position == -1) {
+	  if($p->position == -1 && !isset($_GET['keyword'])) {
 		  continue;
 	  }
 

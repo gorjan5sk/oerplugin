@@ -20,7 +20,14 @@ function resources_display_item($id) {
     $query_resource .= " OER_Resource_Type.title_mk AS Resource_Type,";
     $query_resource .= " OER_Resource_Format.title_mk AS Resource_Format,";
     $query_resource .= " OER_Language.title_mk AS Language,";
-    $query_resource .= " OER_Licence.title_mk AS Licence";
+    $query_resource .= " OER_Licence.title_mk AS Licence,";
+    $query_resource .= " OER_Resource.subject_area_id AS SubjectAreaID,";
+    $query_resource .= " OER_Resource.subject_id AS SubjectID,";
+    $query_resource .= " OER_Resource.grade_level_id AS GradeLevelID,";
+    $query_resource .= " OER_Resource.language_id AS LanguageID,";
+    $query_resource .= " OER_Resource.resource_type_id AS ResourceTypeID,";
+    $query_resource .= " OER_Resource.resource_format_id AS ResourceFormatID,";
+    $query_resource .= " OER_Resource.licence_id AS LicenceID";
     $query_resource .= " FROM OER_Resource,";
     $query_resource .= " OER_User,";
     $query_resource .= " OER_Subject_Area,";
@@ -72,24 +79,35 @@ function resources_display_item($id) {
                 $output .= $data_embed;
             }
 
+					if( get_option( 'permalink_structure') )
+      		if(isset($_GET['lang']))
+        	$m = '?lang=' . $_GET['lang'] . '&';
+      		else
+        	$m = '?';
+    		else
+      		$m = '&';
+      	
+      	//link base
+      	$lb = get_permalink(get_option("oerplugin_resources_page_id")) . $m . "keyword=&"; 				
+					
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Опис: ', 'oerplugin') . "</strong>" . $row->Description;
+		    $output .= "<strong>" . __('Опис: ', 'oerplugin') . "</strong>"  . $row->Description ;
 		    $output .= "<br />";
 		    $output .= "<strong>" . __('Автор: ', 'oerplugin') . "</strong>" . $row->Author;
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Област: ', 'oerplugin') . "</strong>".  $row->Subject_Area;
+		    $output .= "<strong>" . __('Област: ', 'oerplugin') . "</strong>" . "<a href='" . $lb."8_".$row->SubjectAreaID . "=1'>" . $row->Subject_Area . "</a>";
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Предмет: ', 'oerplugin') . "</strong>" . $row->Subject;
+		    $output .= "<strong>" . __('Предмет: ', 'oerplugin') . "</strong>" . "<a href='" . $lb."7_".$row->SubjectID . "=1'>" . $row->Subject . "</a>";
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Ниво на образование: ', 'oerplugin') . "</strong>" . $row->Grade_Level;
+		    $output .= "<strong>" . __('Ниво на образование: ', 'oerplugin') . "</strong>" . "<a href='" . $lb."1_".$row->GradeLevelID . "=1'>" . $row->Grade_Level . "</a>";
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Јазик: ', 'oerplugin') . "</strong>" . $row->Language;
+		    $output .= "<strong>" . __('Јазик: ', 'oerplugin') . "</strong>" . "<a href='" . $lb."2_".$row->LanguageID . "'>" . $row->Language . "</a>";
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Тип на ресурс: ', 'oerplugin') . "</strong>" . $row->Resource_Type;
+		    $output .= "<strong>" . __('Тип на ресурс: ', 'oerplugin') . "</strong>" . "<a href='" . $lb."6_".$row->ResourceTypeID . "=1'>" . $row->Resource_Type . "</a>";
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Формат: ', 'oerplugin') . "</strong>" . $row->Resource_Format;
+		    $output .= "<strong>" . __('Формат: ', 'oerplugin') . "</strong>" . "<a href='" . $lb."5_".$row->ResourceFormatID . "=1'>" . $row->Resource_Format . "</a>";
 		    $output .= "<br />";
-		    $output .= "<strong>" . __('Лиценца: ', 'oerplugin') ."</strong>". $row->Licence;
+		    $output .= "<strong>" . __('Лиценца: ', 'oerplugin') ."</strong>" . "<a href='" . $lb."3_".$row->LicenceID . "=1'>" . $row->Licence . "</a>";
 		    $output .= "<br />";
         $output .= "<strong>" . __('Прикачен од: ', 'oerplugin') . "</strong>" . $row->UserFullName;
         $output .= "<br />";
